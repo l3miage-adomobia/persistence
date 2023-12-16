@@ -1,0 +1,8 @@
+shapesTest/SquareTest.class
+shapesTest/TriangleTest.class
+JDrawingFrameTest.class
+shapesTest/CircleTest.class
+persistence/JSonVisitorTest.class
+shapesTest/CubeTest.class
+commands/GoBackCommandTest.class
+persistence/XMLVisitorTest.class

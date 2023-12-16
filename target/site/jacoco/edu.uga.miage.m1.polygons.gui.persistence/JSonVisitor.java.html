@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JSonVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">yourproject_g1_1</a> &gt; <a href="index.source.html" class="el_package">edu.uga.miage.m1.polygons.gui.persistence</a> &gt; <span class="el_source">JSonVisitor.java</span></div><h1>JSonVisitor.java</h1><pre class="source lang-java linenums">package edu.uga.miage.m1.polygons.gui.persistence;
+
+import edu.uga.miage.m1.polygons.gui.shapes.*;
+
+import java.util.List;
+
+/**
+ * @author &lt;a href=&quot;mailto:christophe.saint-marcel@univ-grenoble-alpes.fr&quot;&gt;Christophe&lt;/a&gt;
+ */
+public class JSonVisitor implements Visitor {
+
+<span class="fc" id="L12">    private StringBuilder representation = new StringBuilder();</span>
+<span class="fc" id="L13">    public JSonVisitor() {</span>
+            // Ce constructeur est laissÃ© vide intentionnellement.
+<span class="fc" id="L15">    }</span>
+
+    private static final String SHAPE_STRUCTURE = &quot;,\&quot;y\&quot;:&quot; ;
+    private static final String END_STRING = &quot;},&quot;;
+    @Override
+    public void visit(Circle circle) {
+<span class="fc" id="L21">        appendRepresentation(&quot;{ \&quot;type\&quot;: \&quot;circle\&quot;,\&quot;x\&quot;:&quot; + circle.getX() + SHAPE_STRUCTURE + circle.getY() + END_STRING);</span>
+<span class="fc" id="L22">    }</span>
+
+    @Override
+    public void visit(Square square) {
+<span class="fc" id="L26">        appendRepresentation(&quot;{\&quot;type\&quot;: \&quot;square\&quot;,\&quot;x\&quot;:&quot; + square.getX() + SHAPE_STRUCTURE + square.getY() + END_STRING);</span>
+<span class="fc" id="L27">    }</span>
+
+    @Override
+    public void visit(Triangle triangle) {
+<span class="fc" id="L31">        appendRepresentation(&quot;{\&quot;type\&quot;: \&quot;triangle\&quot;,\&quot;x\&quot;:&quot; + triangle.getX() + SHAPE_STRUCTURE + triangle.getY() + END_STRING);</span>
+<span class="fc" id="L32">    }</span>
+
+    @Override
+    public void visit(Cube cube) {
+<span class="nc" id="L36">        appendRepresentation(&quot;{\&quot;type\&quot;: \&quot;triangle\&quot;,\&quot;x\&quot;:&quot; + cube.getX() + SHAPE_STRUCTURE + cube.getY() + END_STRING);</span>
+<span class="nc" id="L37">    }</span>
+
+    public void visit(CompositeShape compositeShape) {
+<span class="fc" id="L40">        appendRepresentation(&quot;{ \&quot;type\&quot;: \&quot;composite\&quot;, \&quot;shapes\&quot;: [&quot;);</span>
+
+        // Parcourir la liste de shapes dans le compositeShape
+<span class="fc" id="L43">        List&lt;SimpleShape&gt; shapes = compositeShape.getShapeList();</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        for (int i = 0; i &lt; shapes.size(); i++) {</span>
+            // Utiliser le visiteur pour obtenir la reprÃ©sentation JSON de chaque forme
+<span class="fc" id="L46">            shapes.get(i).accept(this);</span>
+            // Ajouter une virgule si ce n'est pas la derniÃ¨re forme
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (i &lt; shapes.size() - 1) {</span>
+<span class="fc" id="L49">                appendRepresentation(&quot;,&quot;);</span>
+            }
+        }
+
+<span class="fc" id="L53">        appendRepresentation(&quot;]},&quot;);</span>
+<span class="fc" id="L54">    }</span>
+    private void appendRepresentation(String representation) {
+<span class="fc" id="L56">        this.representation.append(representation);</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * @return the representation in JSon example for a Circle
+     *
+     *         &lt;pre&gt;
+     * {@code
+     *  {
+     *     &quot;shape&quot;: {
+     *     	  &quot;type&quot;: &quot;circle&quot;,
+     *        &quot;x&quot;: -25,
+     *        &quot;y&quot;: -25
+     *     }
+     *  }
+     * }
+     *         &lt;/pre&gt;
+     */
+    public String getRepresentation() {
+<span class="fc" id="L75">        return this.representation.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
