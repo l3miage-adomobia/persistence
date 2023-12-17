@@ -3,7 +3,7 @@ package shapesTest;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
+import com.example.shapes.*;
 
 public class SquareTest {
 

@@ -1,6 +1,6 @@
 package shapesTest;
 
-import edu.uga.miage.m1.polygons.gui.shapes.Cube;
+import com.example.shapes.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

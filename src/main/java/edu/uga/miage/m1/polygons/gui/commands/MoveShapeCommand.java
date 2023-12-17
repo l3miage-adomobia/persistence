@@ -1,6 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.commands;
 
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
+import com.example.shapes.*;
 
 public class MoveShapeCommand implements Command{
 

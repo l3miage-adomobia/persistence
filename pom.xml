@@ -19,6 +19,11 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>my-library</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>edu.uga.miage.m1</groupId>
 			<artifactId>edu.uga.singleshape</artifactId>
 			<version>1.0.0</version>

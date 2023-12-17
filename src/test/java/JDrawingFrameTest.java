@@ -14,9 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.uga.miage.m1.polygons.gui.JDrawingFrame;
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
+import com.example.shapes.*;
 
 public class JDrawingFrameTest {
 

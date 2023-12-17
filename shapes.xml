@@ -2,12 +2,22 @@
 <shapes>
     <shape>
         <type>circle</type>
-        <x>99</x>
-        <y>145</y>
+        <x>184</x>
+        <y>303</y>
     </shape>
     <shape>
         <type>circle</type>
-        <x>378</x>
-        <y>157</y>
+        <x>184</x>
+        <y>303</y>
+    </shape>
+    <shape>
+        <type>circle</type>
+        <x>407</x>
+        <y>156</y>
+    </shape>
+    <shape>
+        <type>circle</type>
+        <x>462</x>
+        <y>294</y>
     </shape>
 </shapes>

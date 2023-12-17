@@ -27,9 +27,9 @@ import java.util.List;
 
 import javax.swing.*;
 
+import com.example.ShapeIO;
+import com.example.shapes.*;
 import edu.uga.miage.m1.polygons.gui.commands.GoBackCommand;
-import edu.uga.miage.m1.polygons.gui.importExport.ShapeIO;
-import edu.uga.miage.m1.polygons.gui.shapes.*;
 
 
 /**
@@ -159,6 +159,7 @@ public class JDrawingFrame extends JFrame
     //iterate on the shape list and add the shape to the export string
     public void exportShape() {
         ShapeIO shapeIO = new ShapeIO();
+        List<SimpleShape> l = listOfShapes;
         try {
             shapeIO.exportShapes(listOfShapes, "shapes.xml");
             JOptionPane.showMessageDialog(JDrawingFrame.this, "Formes exportées avec succès !");

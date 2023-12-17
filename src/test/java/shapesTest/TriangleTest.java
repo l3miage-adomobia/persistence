@@ -2,7 +2,7 @@ package shapesTest;
 
 import static org.junit.Assert.assertEquals;
 
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import com.example.shapes.*;
 import org.junit.Test;
 
 public class TriangleTest {
