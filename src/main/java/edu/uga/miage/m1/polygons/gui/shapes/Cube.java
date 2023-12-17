@@ -30,7 +30,7 @@ import edu.uga.singleshape.CubePanel;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Cube implements SimpleShape, Visitable {
+public class Cube implements Visitable,SimpleShape {
 
     int mX;
 

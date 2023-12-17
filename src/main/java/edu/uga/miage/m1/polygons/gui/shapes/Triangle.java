@@ -31,7 +31,7 @@ import java.awt.geom.Path2D;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Triangle implements SimpleShape, Visitable {
+public class Triangle implements Visitable,SimpleShape {
 
     int mX;
 

@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompositeShape implements SimpleShape{
+public class CompositeShape implements SimpleShape {
 
     private List<SimpleShape> shapeList = new ArrayList<>();
 

@@ -33,7 +33,7 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Square implements SimpleShape, Visitable {
+public class Square  implements Visitable,SimpleShape {
 
     int mX;
 

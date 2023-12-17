@@ -10,23 +10,27 @@ import java.awt.Graphics2D;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public interface SimpleShape {
 
-    void accept(Visitor visitor);
+
+
+public interface SimpleShape   {
+
+
+    public  void accept(Visitor visitor);
 
     /**
      * Method to draw the shape of the extension.
      * @param g2 The graphics object used for painting.
      */
-    void draw(Graphics2D g2);
+    public  void draw(Graphics2D g2);
 
-    int getX();
+    public  int getX();
 
-    int getY();
-    void setmY(int mY);
-    void setmX(int mX);
-    public boolean contains(int x, int y);
-    public void move(int diffX, int diffY);
-    public String getType();
+    public  int getY();
+    public  void setmY(int mY);
+    public  void setmX(int mX);
+    public  boolean contains(int x, int y);
+    public abstract  void move(int diffX, int diffY);
+    public abstract String getType();
 
 }

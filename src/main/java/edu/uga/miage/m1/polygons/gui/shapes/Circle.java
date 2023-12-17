@@ -27,16 +27,16 @@ import java.awt.geom.Ellipse2D;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
-public class Circle implements SimpleShape, Visitable {
+public class Circle implements Visitable,SimpleShape {
 
     int mX;
 
     int mY;
-
     public Circle(int x, int y) {
         mX = x - 25;
         mY = y - 25;
     }
+
 
     /**
      * Implements the <tt>SimpleShape.draw()</tt> method for painting

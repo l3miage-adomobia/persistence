@@ -21,13 +21,14 @@ package edu.uga.miage.m1.polygons.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
 
 import edu.uga.miage.m1.polygons.gui.commands.GoBackCommand;
+import edu.uga.miage.m1.polygons.gui.importExport.ShapeIO;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
 
 
@@ -55,6 +56,8 @@ public class JDrawingFrame extends JFrame
     private transient ActionListener mReusableActionListener = new ShapeActionListener();
     //our new action listener for the export button
     private transient ActionListener mExportActionListener = new ExportActionListener();
+
+    private transient ActionListener mImportActionListener = new ImportActionListener();
     public final transient GoBackCommand goBackCommand = new GoBackCommand(this);
     //our 2D arraylist to store the shapes and their coordinates
     private transient ArrayList<String[]> mShapeList = new ArrayList<>();
@@ -95,6 +98,7 @@ public class JDrawingFrame extends JFrame
 
         // add button
         addButtonExport("activeexport", new ImageIcon(getClass().getResource("images/underc.png")));
+        addButtonImport("activeimport", new ImageIcon(getClass().getResource("images/underc.png")));
 
 
         // add key listener to the frame
@@ -140,61 +144,42 @@ public class JDrawingFrame extends JFrame
         mToolbar.validate();
         repaint();
     }
+    private void addButtonImport(String name, ImageIcon icon) {
+        JButton button = new JButton(icon);
+        button.setBorderPainted(false);
+        button.setActionCommand(name);
+        button.addActionListener(mImportActionListener);
+        mToolbar.add(button);
+        mToolbar.validate();
+        repaint();
+    }
 
 
     //methods that format the shape list to xml or json depending on user choice
     //iterate on the shape list and add the shape to the export string
     public void exportShape() {
+        ShapeIO shapeIO = new ShapeIO();
+        try {
+            shapeIO.exportShapes(listOfShapes, "shapes.xml");
+            JOptionPane.showMessageDialog(JDrawingFrame.this, "Formes exportées avec succès !");
 
-        String fileType = "";
-        String export = "";
-        boolean validtype = false;
-        // open a dialog box to choose the type of export (xml or json)
-        fileType = javax.swing.JOptionPane.showInputDialog("Choisissez le type d'export ( 'xml' ou  'json' ?)");
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(JDrawingFrame.this, "Erreur lors de l'exportation des formes : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);        }
+    }
 
-        //iterate while the user doesn't choose a valid type
-        while (!validtype){
-            //case where the user chose to export in json (equalsIgnoreCase compare two strings without taking care of the case)
-            if( "json".equalsIgnoreCase(fileType) ){
-
-                export = exportJson(mShapeList);
-                validtype = true;
-            }
-            //case where the user chose to export in xml (equalsIgnoreCase compare two strings without taking care of the case)
-            else if("xml".equalsIgnoreCase(fileType)){
-                export = exportXml(mShapeList);
-                validtype = true;
-            }else {
-                javax.swing.JOptionPane.showConfirmDialog(null, "Vous n'avez pas saisi un type valide, veuillez recommencer");
-                exportShape();
-            }
+    private void importShapes() {
+        ShapeIO shapeIO = new ShapeIO();
+        try {
+            List<SimpleShape> importedShapes = shapeIO.importShapes("shapes.xml");
+            listOfShapes.clear();
+            listOfShapes.addAll(importedShapes);
+            redrawShapes();
+            JOptionPane.showMessageDialog(JDrawingFrame.this, "Formes importées avec succès !");
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(JDrawingFrame.this, "Erreur lors de l'importation des formes : " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
-
-
-        // ask user for a file name
-        String fileName = javax.swing.JOptionPane.showInputDialog("nom du fichier a enregistrer?");
-
-        // open file explorer to choose where to save the file
-        javax.swing.JFileChooser fileExplorer = new javax.swing.JFileChooser();
-        fileExplorer.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-        fileExplorer.showSaveDialog(null);
-
-        File selectedFile = fileExplorer.getSelectedFile();
-
-        // create the file to save
-        File file = new File(selectedFile.getParent(), fileName + "." + fileType);
-
-
-
-        try( java.io.PrintWriter output = new java.io.PrintWriter(file)) {
-            output.print(export);
-        } catch (Exception e) {
-            //laissé sans traitement pour l'instant
-        }
-
-        javax.swing.JOptionPane.showMessageDialog(null, "fichier creee");
-
     }
 
 
@@ -458,6 +443,13 @@ private void modifyLabel(MouseEvent evt) {
 
             if(evt.getActionCommand().equals("activeexport")) {
                 exportShape();            }
+        }
+    }
+    private class ImportActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            if (evt.getActionCommand().equals("activeimport")) {
+                importShapes();
+            }
         }
     }
 
